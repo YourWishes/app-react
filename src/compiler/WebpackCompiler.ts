@@ -77,6 +77,30 @@ export class WebpackCompiler {
               }
             }
           },
+          
+          {
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            use: {
+              loader: 'babel-loader?cacheDirectory',
+              options: {
+                presets: [
+                  [
+                    "@babel/preset-env",
+                    {
+                      "targets": {
+                        "node": "current",
+                        "browsers": [ "Chrome >= 41", "FireFox >= 44", "Safari >= 7", "Explorer 11", "last 2 Edge versions" ]
+                      },
+                      "useBuiltIns": false
+                    }
+                  ],
+                  "@babel/preset-react"
+                ],
+                "plugins": [ '@babel/plugin-syntax-dynamic-import' ]
+              }
+            }
+          },
 
           //TS Sourcemap loader
           { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
