@@ -1,6 +1,6 @@
 {
   "name": "@yourwishes/app-react",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React Server Compiling Module for my App framework.",
   "main": "dist/index.js",
   "scripts": {
@@ -47,7 +47,7 @@
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "@yourwishes/app-base": "^1.1.1",
-    "@yourwishes/app-server": "^1.0.3",
+    "@yourwishes/app-server": "^1.0.4",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.0",
