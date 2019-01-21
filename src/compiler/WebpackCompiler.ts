@@ -63,6 +63,7 @@ export class WebpackCompiler {
             loader: "awesome-typescript-loader",
             options: {
               jsx: 'react',
+              configFileName: `${ReactSource}/tsconfig.json`,
               useBabel: true, babelCore: "@babel/core",
               babelOptions: {
                 "babelrc": false,
@@ -77,7 +78,7 @@ export class WebpackCompiler {
               }
             }
           },
-          
+
           {
             test: /\.jsx?$/,
             exclude: /node_modules/,
