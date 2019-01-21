@@ -1,6 +1,6 @@
 {
   "name": "@yourwishes/app-react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React Server Compiling Module for my App framework.",
   "main": "dist/index.js",
   "scripts": {
@@ -32,6 +32,8 @@
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.12",
     "@types/webpack": "^4.4.22",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
     "jest": "^23.6.0",
     "nodemon": "^1.18.8",
     "ts-jest": "^23.10.5",
@@ -44,8 +46,6 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
-    "@types/react": "^16.7.18",
-    "@types/react-dom": "^16.0.11",
     "@yourwishes/app-base": "^1.1.1",
     "@yourwishes/app-server": "^1.0.5",
     "awesome-typescript-loader": "^5.2.1",

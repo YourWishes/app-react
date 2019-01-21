@@ -161,6 +161,11 @@ export class WebpackCompiler {
       inject: true
     }));
 
+    //DefinePlugin (For sending constant variables to the compiled JS)
+    config.plugins.push(new webpack.DefinePlugin({
+      PRODUCTION: isProduction
+    }));
+
     if(isProduction) {
       //Production ONLY Plugins
       let TerserPluginConfig = new TerserPlugin({
