@@ -51,7 +51,7 @@ export class WebpackCompiler {
 
       resolve: {
         modules: [ `${AppRoot}/node_modules`, ReactSource ],
-        extensions: ['.ts.', '.tsx', '.js', '.jsx', '.json', '.css', '.scss'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.css', '.scss'],
         alias: { /* TODO: Get Aliases Here */ }
       },
 
@@ -59,7 +59,7 @@ export class WebpackCompiler {
         rules: [
           //Typescript pre-compiler
           {
-            test: /\.tsx?$/,
+            test: /\.ts$|\.tsx$/,
             loader: "awesome-typescript-loader",
             options: {
               jsx: 'react',
