@@ -4,16 +4,9 @@
     "module": "commonjs",
     "outDir": "./dist",
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "typeRoots": [ "node_modules/@types/" ]
   },
-  "files": [
-    "./node_modules/@types/jest/index.d.ts",
-    "./node_modules/@types/node/index.d.ts",
-    "./node_modules/@types/webpack/index.d.ts",
-    "./node_modules/@types/html-webpack-plugin/index.d.ts",
-    "./node_modules/@types/react/index.d.ts",
-    "./node_modules/@types/react-dom/index.d.ts"
-  ],
   "include": [
     "src/**/*.ts"
   ],
