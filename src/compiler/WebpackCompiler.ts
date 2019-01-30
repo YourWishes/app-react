@@ -109,7 +109,6 @@ export class WebpackCompiler {
           //Style Loader
           {
             test: /\.scss$|\.css$/i,
-            exclude: /node_modules/,
             use: isProduction ? (
               [ MiniCssExtractPlugin.loader, "css-loader", 'sass-loader' ]
             ) : (
