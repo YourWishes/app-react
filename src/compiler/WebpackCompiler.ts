@@ -63,19 +63,7 @@ export class WebpackCompiler {
             loader: "awesome-typescript-loader",
             options: {
               jsx: 'react',
-              configFileName: `${ReactSource}/tsconfig.json`,
-              useBabel: true, babelCore: "@babel/core",
-              babelOptions: {
-                "babelrc": false,
-                "presets": [
-                  [ "@babel/preset-env", {
-                    "targets": {
-                      "node": "current",
-                      "browsers": [ "Chrome >= 41", "FireFox >= 44", "Safari >= 7", "Explorer 11", "last 2 Edge versions" ]
-                    }, "useBuiltIns": false
-                  } ]
-                ]
-              }
+              configFileName: `${ReactSource}/tsconfig.json`
             }
           },
 
