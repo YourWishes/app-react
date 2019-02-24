@@ -26,6 +26,8 @@ import { IReactApp } from './../app/';
 import { ReactBase } from './../';
 
 import * as express from 'express';
+import { Request, Response } from 'express';
+import * as path from 'path';
 
 export class ReactModule extends ServerModule {
   app:IReactApp;
@@ -39,5 +41,13 @@ export class ReactModule extends ServerModule {
 
     //Serve Static Files
     this.express.use(express.static(ReactBase));
+
+    //Fallback for "404" handling
+    this.express.get('*', (req,res) => this.onGetRequest(req, res));
+  }
+
+  onGetRequest(req:Request, res:Response) {
+    let file = path.resolve(path.join(ReactBase, 'index.html'));
+    res.sendFile(file);
   }
 }
