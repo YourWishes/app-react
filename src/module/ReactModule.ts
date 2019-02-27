@@ -21,6 +21,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import { Environment } from '@yourwishes/app-base';
 import { ServerModule } from '@yourwishes/app-server';
 import { IReactApp } from './../app/';
 import { ReactBase } from './../';
@@ -31,7 +32,10 @@ import * as path from 'path';
 
 import { WebpackWatcher } from './../compiler';
 
+export const CONFIG_DEVELOPMENT = 'server.watch';
+
 export class ReactModule extends ServerModule {
+  watcher:WebpackWatcher;
   app:IReactApp;
 
   constructor(app:IReactApp) {
@@ -46,6 +50,11 @@ export class ReactModule extends ServerModule {
 
     //Fallback for "404" handling
     this.express.get('*', (req,res) => this.onGetRequest(req, res));
+
+    //Development watcher
+    if(this.app.config.get(CONFIG_DEVELOPMENT)) {
+      this.watcher = this.app.getCompiler().createWatcher(this, this.app.environment === Environment.PRODUCTION);
+    }
   }
 
   onGetRequest(req:Request, res:Response) {
