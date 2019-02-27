@@ -59,7 +59,16 @@ export class WebpackWatcher {
 
     //Force a browser refresh, but we have to assume our app supports refreshing
     if(typeof this.socket !== typeof undefined) {
-      this.socket.sockets.forEach( socket=>socket.send({path:'/reload'}) );
+      this.socket.sockets.forEach(socket => {
+        let code = 200;
+
+        try {
+          let s = require('@yourwishes/app-api');
+          if(s.RESPONSE_OK) code = s.RESPONSE_OK;
+        } catch(e) {}
+
+        socket.send({ path:'/socket/reload', code });
+      });
     }
   }
 }
