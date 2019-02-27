@@ -29,6 +29,8 @@ import * as express from 'express';
 import { Request, Response } from 'express';
 import * as path from 'path';
 
+import { WebpackWatcher } from './../compiler';
+
 export class ReactModule extends ServerModule {
   app:IReactApp;
 

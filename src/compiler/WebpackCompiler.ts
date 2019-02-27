@@ -30,6 +30,8 @@ import * as TerserPlugin from 'terser-webpack-plugin';
 import * as OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
 import { AppRoot, ReactBase, ReactSource } from './../';
+import { WebpackWatcher } from './';
+import { ReactModule } from './../';
 
 export class WebpackCompiler {
   constructor() {
@@ -181,5 +183,23 @@ export class WebpackCompiler {
 
     //Return the config
     return config;
+  }
+
+  createCompiler(react:ReactModule, isProduction:boolean=true, extra?:webpack.Configuration) {
+    return webpack({
+      ...this.generateConfiguration(isProduction),
+      ...extra
+    });
+  }
+
+  createWatcher(react:ReactModule, isProduction:boolean=true, extra?:webpack.Configuration) {
+    extra = extra || {};
+
+    let watcher = this.createCompiler(react, isProduction, {
+      watch: true,
+      ...extra
+    });
+
+    return new WebpackWatcher(react, watcher);
   }
 }
