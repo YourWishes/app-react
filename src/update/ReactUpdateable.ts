@@ -21,43 +21,18 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import { Environment } from '@yourwishes/app-base';
-import { ServerModule } from '@yourwishes/app-server';
-import { ReactBase, ReactUpdateable, IReactApp, WebpackWatcher } from './../';
+import { ModuleUpdateable, NPMPackage } from '@yourwishes/app-base';
+import { IReactApp } from './../app/';
 
-import * as express from 'express';
-import { Request, Response } from 'express';
-import * as path from 'path';
-
-export const CONFIG_DEVELOPMENT = 'server.watch';
-
-export class ReactModule extends ServerModule {
-  watcher:WebpackWatcher;
+export class ReactUpdateable extends ModuleUpdateable {
   app:IReactApp;
 
   constructor(app:IReactApp) {
-    super(app);
-
-    app.updateChecker.addUpdateable(new ReactUpdateable(app));
+    super();
+    this.app = app;
   }
 
-  async init():Promise<void> {
-    await super.init();
-
-    //Serve Static Files
-    this.express.use(express.static(ReactBase));
-
-    //Fallback for "404" handling
-    this.express.get('*', (req,res) => this.onGetRequest(req, res));
-
-    //Development watcher
-    if(this.app.config.get(CONFIG_DEVELOPMENT)) {
-      this.watcher = this.app.getCompiler().createWatcher(this, this.app.environment === Environment.PRODUCTION);
-    }
-  }
-
-  onGetRequest(req:Request, res:Response) {
-    let file = path.resolve(path.join(ReactBase, 'index.html'));
-    res.sendFile(file);
+  getPackage():NPMPackage {
+    return require('./../../package.json');
   }
 }

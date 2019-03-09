@@ -1,6 +1,7 @@
 export * from './app/';
 export * from './module/';
 export * from './compiler/';
+export * from './update/';
 
 //TODO: I need to be able to get these folders from the tsconfig somehow
 import * as path from 'path';
