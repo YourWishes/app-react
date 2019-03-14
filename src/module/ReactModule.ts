@@ -38,7 +38,7 @@ export class ReactModule extends Module {
     if(!app.server) throw new Error("Server Module must be defined before the React Module");
     super(app);
   }
-  
+
   getPackage():NPMPackage { return require ('./../../package.json'); }
 
   async init():Promise<void> {
@@ -59,7 +59,6 @@ export class ReactModule extends Module {
   async destroy():Promise<void> {
 
   }
-
 
   onAnyGetRequest(req:Request, res:Response) {
     let file = path.resolve(path.join(ReactBase, 'index.html'));
