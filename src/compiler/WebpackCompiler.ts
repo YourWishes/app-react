@@ -83,7 +83,7 @@ export class WebpackCompiler {
                         "node": "current",
                         "browsers": [ "Chrome >= 41", "FireFox >= 44", "Safari >= 7", "Explorer 11", "last 2 Edge versions" ]
                       },
-                      "useBuiltIns": false
+                      "useBuiltIns": 'usage'
                     }
                   ],
                   "@babel/preset-react"

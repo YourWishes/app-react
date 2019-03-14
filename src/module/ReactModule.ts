@@ -21,9 +21,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import { Environment } from '@yourwishes/app-base';
-import { ServerModule } from '@yourwishes/app-server';
-import { ReactBase, ReactUpdateable, IReactApp, WebpackWatcher } from './../';
+import { Module, Environment, NPMPackage } from '@yourwishes/app-base';
+import { ReactBase, IReactApp, WebpackWatcher } from './../';
 
 import * as express from 'express';
 import { Request, Response } from 'express';
@@ -31,24 +30,25 @@ import * as path from 'path';
 
 export const CONFIG_DEVELOPMENT = 'server.watch';
 
-export class ReactModule extends ServerModule {
+export class ReactModule extends Module {
   watcher:WebpackWatcher;
   app:IReactApp;
 
   constructor(app:IReactApp) {
+    if(!app.server) throw new Error("Server Module must be defined before the React Module");
     super(app);
-
-    app.updateChecker.addUpdateable(new ReactUpdateable(app));
   }
+  
+  getPackage():NPMPackage { return require ('./../../package.json'); }
 
   async init():Promise<void> {
-    await super.init();
+    let { server } = this.app.server;
 
     //Serve Static Files
-    this.express.use(express.static(ReactBase));
+    server.express.use(express.static(ReactBase));
 
     //Fallback for "404" handling
-    this.express.get('*', (req,res) => this.onGetRequest(req, res));
+    server.express.get('*', (req,res) => this.onAnyGetRequest(req, res));
 
     //Development watcher
     if(this.app.config.get(CONFIG_DEVELOPMENT)) {
@@ -56,7 +56,12 @@ export class ReactModule extends ServerModule {
     }
   }
 
-  onGetRequest(req:Request, res:Response) {
+  async destroy():Promise<void> {
+
+  }
+
+
+  onAnyGetRequest(req:Request, res:Response) {
     let file = path.resolve(path.join(ReactBase, 'index.html'));
     res.sendFile(file);
   }

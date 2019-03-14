@@ -26,7 +26,7 @@ import { ReactModule } from './../module/';
 import { WebpackCompiler } from './../compiler/';
 
 export interface IReactApp extends IServerApp {
-  server:ReactModule;
+  react:ReactModule;
 
   getCompiler():WebpackCompiler;
 }
