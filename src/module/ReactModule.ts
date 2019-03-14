@@ -39,7 +39,7 @@ export class ReactModule extends Module {
     super(app);
   }
 
-  getPackage():NPMPackage { return require ('./../../package.json'); }
+  loadPackage():NPMPackage { return require ('./../../package.json'); }
 
   async init():Promise<void> {
     let { server } = this.app.server;

@@ -27,6 +27,6 @@ describe('getPackage', () => {
   let module = new ReactModule(DummyApp);
 
   it('should return the package json', () => {
-    expect(module.getPackage()).toHaveProperty('name', '@yourwishes/app-react');
+    expect(module.package).toHaveProperty('name', '@yourwishes/app-react');
   });
 });
