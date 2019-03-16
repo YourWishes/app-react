@@ -6,4 +6,4 @@ export * from './compiler/';
 import * as path from 'path';
 export const AppRoot = path.resolve(`./`);//The directory the CLI is running from
 export const ReactBase = path.resolve(`${AppRoot}/dist/public`);//The Dist folder root
-export const ReactSource = path.resolve(`${AppRoot}/public`);//The source folder (has index.html)
+export const ReactSource = path.resolve(`${AppRoot}/src/public`);//The source folder (has index.html)
