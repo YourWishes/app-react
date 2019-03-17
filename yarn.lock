@@ -706,7 +706,7 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/webpack@*", "@types/webpack@^4.4.22":
+"@types/webpack@*", "@types/webpack@^4.4.25":
   version "4.4.25"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-4.4.25.tgz#c8a1eb968a33a3e6da641f529c5add0d44d34809"
   dependencies:
@@ -856,19 +856,19 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@yourwishes/app-api/-/app-api-1.1.0.tgz#e44fa62fe69fbeb17f61717f9eb3ce2fae21d567"
 
-"@yourwishes/app-base@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@yourwishes/app-base/-/app-base-2.0.0.tgz#faca1fc6665aa1b0d99dfa75c839210543258bd0"
+"@yourwishes/app-base@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@yourwishes/app-base/-/app-base-2.0.1.tgz#85cf0092869ad23e499d4266dc805628116caadb"
   dependencies:
     cross-fetch "^3.0.1"
     node-cache "^4.2.0"
 
-"@yourwishes/app-server@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@yourwishes/app-server/-/app-server-2.0.0.tgz#ad272787fe6a2ea6c792404b92c786b0aa03aba7"
+"@yourwishes/app-server@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@yourwishes/app-server/-/app-server-2.0.1.tgz#be62c89eeb6fd118d3e29ff8743a6dfb7065d9fb"
   dependencies:
     "@yourwishes/app-api" "^1.1.0"
-    "@yourwishes/app-base" "^2.0.0"
+    "@yourwishes/app-base" "^2.0.1"
     body-parser "^1.18.3"
     express "^4.16.4"
 
