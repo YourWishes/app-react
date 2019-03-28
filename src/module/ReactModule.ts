@@ -22,16 +22,18 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import { Module, Environment, NPMPackage } from '@yourwishes/app-base';
-import { ReactBase, IReactApp, WebpackWatcher } from './../';
+import { ReactBase, IReactApp } from './../';
 
 import * as express from 'express';
 import { Request, Response } from 'express';
 import * as path from 'path';
 
-export const CONFIG_DEVELOPMENT = 'server.watch';
+import * as webpack from 'webpack';
 
 export class ReactModule extends Module {
-  watcher:WebpackWatcher;
+  config:webpack.Configuration;
+  compiler:webpack.Compiler;
+
   app:IReactApp;
 
   constructor(app:IReactApp) {
@@ -44,16 +46,22 @@ export class ReactModule extends Module {
   async init():Promise<void> {
     let { server } = this.app.server;
 
+    //Determine environment type
+    let isProduction = this.app.environment === Environment.PRODUCTION;
+
+    //If development enable hot module server
+    if(!isProduction) {
+      this.config = this.app.getCompiler().generateConfiguration(isProduction);
+      this.compiler = webpack(this.config);
+      server.express.use(require('webpack-hot-middleware')(this.compiler));
+      server.express.use(require('webpack-dev-middleware')(this.compiler));
+    }
+
     //Serve Static Files
     server.express.use(express.static(ReactBase));
 
     //Fallback for "404" handling
     server.express.get('*', (req,res) => this.onAnyGetRequest(req, res));
-
-    //Development watcher
-    if(this.app.config.get(CONFIG_DEVELOPMENT)) {
-      this.watcher = this.app.getCompiler().createWatcher(this, this.app.environment === Environment.PRODUCTION);
-    }
   }
 
   async destroy():Promise<void> {

@@ -30,7 +30,6 @@ import * as TerserPlugin from 'terser-webpack-plugin';
 import * as OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
 import { AppRoot, ReactBase, ReactSource } from './../';
-import { WebpackWatcher } from './';
 import { ReactModule } from './../';
 
 export class WebpackCompiler {
@@ -38,23 +37,36 @@ export class WebpackCompiler {
 
   }
 
-  generateConfiguration(isProduction:boolean=true) {
+  generateConfiguration(isProduction:boolean=true, extra:webpack.Configuration={}) {
+    extra = extra || {};
+
+    //Merge-If array and object
+    let mifa = (j) => j ? j : [];
+    let mifo = (j) => j ? j : {};
+
     //Generaconfigte the base configuration
     let config:webpack.Configuration = {
       devtool: isProduction ? 'source-map' : 'cheap-module-eval-source-map',
       mode: isProduction ? 'production' : 'development',
 
-      plugins: [],
-      entry: [ `${ReactSource}/index.tsx` ],
+      plugins: [
+        ...mifa(extra.plugins)
+      ],
+      entry: [
+        `${ReactSource}/index.tsx`,
+        ...mifa(extra.entry)
+      ],
 
       output: {
-        path: ReactBase, filename: 'app.js', publicPath: '/'
+        path: ReactBase, filename: 'app.js', publicPath: '/',
+        ...mifo(extra.output)
       },
 
       resolve: {
         modules: [ `${AppRoot}/node_modules`, ReactSource ],
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.css', '.scss'],
-        alias: { /* TODO: Get Aliases Here */ }
+        alias: { /* TODO: Get Aliases Here */ },
+        ...mifo(extra.resolve)
       },
 
       module: {
@@ -178,28 +190,23 @@ export class WebpackCompiler {
       };
     } else {
       //Development only plugins
+      config.plugins = [
+        ...config.plugins,
+        new webpack.optimize.OccurrenceOrderPlugin(false),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
+      ];
+
+      config.watch = true;
+
+      config.entry = [
+        ...config.entry as string[],
+        'webpack-hot-middleware/client'
+      ];
     }
 
 
     //Return the config
     return config;
-  }
-
-  createCompiler(react:ReactModule, isProduction:boolean=true, extra?:webpack.Configuration) {
-    return webpack({
-      ...this.generateConfiguration(isProduction),
-      ...extra
-    });
-  }
-
-  createWatcher(react:ReactModule, isProduction:boolean=true, extra?:webpack.Configuration) {
-    extra = extra || {};
-
-    let watcher = this.createCompiler(react, isProduction, {
-      watch: true,
-      ...extra
-    });
-
-    return new WebpackWatcher(react, watcher);
   }
 }

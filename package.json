@@ -1,6 +1,6 @@
 {
   "name": "@yourwishes/app-react",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "React Server Compiling Module for my App framework.",
   "main": "dist/index.js",
   "scripts": {
@@ -42,6 +42,7 @@
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "@types/webpack-hot-middleware": "^2.16.5",
     "@yourwishes/app-base": "^2.0.1",
     "@yourwishes/app-server": "^2.0.1",
     "awesome-typescript-loader": "^5.2.1",
@@ -62,6 +63,7 @@
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.1",
     "url-loader": "^1.1.2",
-    "webpack": "^4.28.3"
+    "webpack": "^4.28.3",
+    "webpack-hot-middleware": "^2.24.3"
   }
 }
