@@ -201,7 +201,7 @@ export class WebpackCompiler {
 
       config.entry = [
         ...config.entry as string[],
-        'webpack-hot-middleware/client'
+        'webpack-hot-middleware/client?reload=true'
       ];
     }
 
