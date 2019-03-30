@@ -889,12 +889,19 @@
     cross-fetch "^3.0.1"
     node-cache "^4.2.0"
 
-"@yourwishes/app-server@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@yourwishes/app-server/-/app-server-2.0.1.tgz#be62c89eeb6fd118d3e29ff8743a6dfb7065d9fb"
+"@yourwishes/app-base@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@yourwishes/app-base/-/app-base-2.0.2.tgz#7de6806e1ce72a668e50ac616634f3d6af12e9a9"
+  dependencies:
+    cross-fetch "^3.0.1"
+    node-cache "^4.2.0"
+
+"@yourwishes/app-server@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@yourwishes/app-server/-/app-server-2.0.2.tgz#9782d68957a6088a65ad86cfefa3d778a5c33759"
   dependencies:
     "@yourwishes/app-api" "^1.1.0"
-    "@yourwishes/app-base" "^2.0.1"
+    "@yourwishes/app-base" "^2.0.2"
     body-parser "^1.18.3"
     express "^4.16.4"
 
