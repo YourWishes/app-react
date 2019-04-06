@@ -159,7 +159,8 @@ export class WebpackCompiler {
     config.plugins.push(new HtmlWebpackPlugin({
       template: `${ReactSource}/index.html`,
       filename: 'index.html',
-      inject: true
+      inject: true,
+      ...this.getTemplateVariables()
     }));
 
     //DefinePlugin (For sending constant variables to the compiled JS)
@@ -209,4 +210,6 @@ export class WebpackCompiler {
     //Return the config
     return config;
   }
+
+  getTemplateVariables() { return {}; }
 }
