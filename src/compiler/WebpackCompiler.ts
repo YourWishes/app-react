@@ -208,10 +208,6 @@ export class WebpackCompiler {
         ...config.entry as string[],
         'webpack-hot-middleware/client?reload=true'
       ];
-
-      config.optimization = {
-        splitChunks: { chunks: 'all' }
-      };
     }
 
 
