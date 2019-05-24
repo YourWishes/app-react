@@ -35,10 +35,11 @@ export class ReactModule extends Module {
   compiler:webpack.Compiler;
 
   app:IReactApp;
+  doWatch:boolean=false;
 
   constructor(app:IReactApp) {
-    if(!app.server) throw new Error("Server Module must be defined before the React Module");
     super(app);
+    if(!app.server) throw new Error("Server Module must be defined before the React Module");
   }
 
   loadPackage():NPMPackage { return require ('./../../package.json'); }
@@ -50,7 +51,7 @@ export class ReactModule extends Module {
     let isProduction = this.app.environment === Environment.PRODUCTION;
 
     //If development enable hot module server
-    if(!isProduction) {
+    if(!isProduction || this.doWatch) {
       this.config = this.app.getCompiler().generateConfiguration(isProduction);
       this.compiler = webpack(this.config);
       server.express.use(require('webpack-hot-middleware')(this.compiler));
