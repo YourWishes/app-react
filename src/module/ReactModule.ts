@@ -24,15 +24,21 @@
 import { Module, Environment, NPMPackage } from '@yourwishes/app-base';
 import { ReactBase, IReactApp } from './../';
 
+import { NextHandleFunction } from 'connect';
+
 import * as express from 'express';
 import { Request, Response } from 'express';
 import * as path from 'path';
 
 import * as webpack from 'webpack';
+import * as webpackHotMiddleware from 'webpack-hot-middleware';
+import * as webpackDevMiddleware from 'webpack-dev-middleware';
 
 export class ReactModule extends Module {
   config:webpack.Configuration;
   compiler:webpack.Compiler;
+  hotMiddleware:webpackHotMiddleware.EventStream & NextHandleFunction;
+  devMiddleware:webpackDevMiddleware.WebpackDevMiddleware & NextHandleFunction;
 
   app:IReactApp;
   doWatch:boolean=false;
@@ -49,13 +55,16 @@ export class ReactModule extends Module {
 
     //Determine environment type
     let isProduction = this.app.environment === Environment.PRODUCTION;
+    if(!isProduction) this.doWatch = true;
 
     //If development enable hot module server
-    if(!isProduction || this.doWatch) {
+    if(this.doWatch) {
       this.config = this.app.getCompiler().generateConfiguration(isProduction);
       this.compiler = webpack(this.config);
-      server.express.use(require('webpack-hot-middleware')(this.compiler));
-      server.express.use(require('webpack-dev-middleware')(this.compiler));
+      this.hotMiddleware = webpackHotMiddleware(this.compiler);
+      this.devMiddleware = webpackDevMiddleware(this.compiler);
+      server.express.use(this.hotMiddleware);
+      server.express.use(this.devMiddleware);
     }
 
     //Serve Static Files
@@ -66,7 +75,10 @@ export class ReactModule extends Module {
   }
 
   async destroy():Promise<void> {
-
+    if(this.devMiddleware) {
+      this.devMiddleware.close();
+      this.devMiddleware = null;
+    }
   }
 
   onAnyGetRequest(req:Request, res:Response) {
