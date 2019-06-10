@@ -22,7 +22,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import { CLICommand, IApp, CommandOptions, ICLICommander, CommandResult } from '@yourwishes/app-base';
-import { IReactApp } from './../app';
+import { IReactApp } from '~app';
 
 export class WatchCommand extends CLICommand {
   constructor(commander:ICLICommander) {

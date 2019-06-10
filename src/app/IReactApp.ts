@@ -22,8 +22,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import { IServerApp } from '@yourwishes/app-server';
-import { ReactModule } from './../module/';
-import { WebpackCompiler } from './../compiler/';
+import { ReactModule } from '~module';
+import { WebpackCompiler } from '~compiler';
 
 export interface IReactApp extends IServerApp {
   react:ReactModule;

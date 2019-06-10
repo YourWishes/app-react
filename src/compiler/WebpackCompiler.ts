@@ -30,7 +30,6 @@ import * as TerserPlugin from 'terser-webpack-plugin';
 import * as OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
 import { AppRoot, ReactBase, ReactSource } from './../';
-import { ReactModule } from './../';
 
 export class WebpackCompiler {
   constructor() {

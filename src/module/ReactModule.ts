@@ -22,7 +22,8 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import { Module, Environment, NPMPackage } from '@yourwishes/app-base';
-import { ReactBase, IReactApp } from './../';
+import { IReactApp } from '~app';
+import { ReactBase } from './../';
 
 import { NextHandleFunction } from 'connect';
 
